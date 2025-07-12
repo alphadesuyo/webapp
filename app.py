@@ -10,7 +10,15 @@ from functools import wraps
 import io
 
 app = Flask(__name__)
-CORS(app)  # フロントエンドからのアクセスを許可
+CORS(app, resources={
+    r"/api/*": {
+        "origins": [
+            "https://admin-attendance.netlify.app",
+            "https://employee-attendance1.netlify.app"
+        ]
+    }
+})
+
 
 # 設定
 DATABASE_PATH = 'database/attendance.db'
@@ -472,5 +480,7 @@ if __name__ == '__main__':
     print("📍 管理者用ページ:  http://localhost:5000/admin/")
     print("🔐 管理者パスワード: admin123")
     print("=" * 60)
-    
-    app.run(debug=True, host='0.0.0.0', port=5000)
+
+    port = int(os.environ.get('PORT', 5000))  # ← ここが変更ポイント！
+    app.run(debug=True, host='0.0.0.0', port=port)
+
