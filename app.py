@@ -82,23 +82,9 @@ def admin_required(f):
 # =============================================================================
 
 @app.route('/')
-def user_page():
-    """使用者用ページ"""
-    try:
-        with open('frontend/user/index.html', 'r', encoding='utf-8') as f:
-            return f.read()
-    except FileNotFoundError:
-        return """
-        <!DOCTYPE html>
-        <html>
-        <head><title>ファイルが見つかりません</title></head>
-        <body>
-            <h1>エラー</h1>
-            <p>frontend/user/index.html が見つかりません。</p>
-            <p>ファイル構成を確認してください。</p>
-        </body>
-        </html>
-        """, 404
+def index():
+    return '✅ APIサーバーは動作中です'
+
 
 @app.route('/api/employees', methods=['GET'])
 def get_employees():
